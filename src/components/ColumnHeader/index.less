@@ -1,0 +1,30 @@
+.h2 {
+  font-size: var(--fs-1);
+}
+
+.article-title {
+  position: relative;
+  margin-bottom: 30px;
+  padding-bottom: 7px;
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 3px;
+    background: var(--text-gradient-yellow);
+    border-radius: 3px;
+    @media (min-width: 580px) {
+      width: 40px;
+      height: 5px;
+    }
+  }
+  @media (min-width: 768px) {
+    padding-bottom: 20px;
+  }
+  @media (min-width: 580px) {
+    font-weight: var(--fw-600);
+    padding-bottom: 15px;
+  }
+}

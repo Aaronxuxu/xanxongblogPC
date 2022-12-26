@@ -1,4 +1,6 @@
 body {
+  height: auto !important;
+  padding: 50px 0;
   background: var(--smoky-black);
   font-family: var(--ff-poppins);
 }
@@ -12,6 +14,52 @@ body {
 
 .App {
   margin: auto;
+  overflow: hidden;
+
+  .route-column {
+    padding: 30px;
+    color: var(--white-2);
+    .navBar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: hsla(240, 1%, 17%, 0.75);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--jet);
+      border-radius: 12px 12px 0 0;
+      box-shadow: var(--shadow-2);
+      z-index: 5;
+      .navBar-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        padding: 0 10px;
+        @media (min-width: 580px) {
+          gap: 20px;
+        }
+        @media (min-width: 1024px) {
+          gap: 30px;
+          padding: 0 20px;
+        }
+      }
+      @media (min-width: 580px) {
+        border-radius: 20px 20px 0 0;
+      }
+      @media (min-width: 1024px) {
+        position: absolute;
+        bottom: auto;
+        top: 0;
+        left: auto;
+        right: 0;
+        width: max-content;
+        border-radius: 0 20px;
+        padding: 0 20px;
+        box-shadow: none;
+      }
+    }
+  }
 }
 
 @media (max-width: 1200px) {
@@ -27,8 +75,9 @@ body {
 }
 
 .base-main {
+  position: relative;
+  height: 100%;
   background: var(--eerie-black-2);
   border: 1px solid var(--jet);
   border-radius: 20px;
-  transition: var(--transition-2);
 }
