@@ -5,6 +5,9 @@ import { Space, Row, Col, Image } from "antd";
 import MyIcon from "../../util/icon";
 import "./index.less";
 
+import { connect } from "react-redux";
+import { showHideMore } from "../../redux/actions/showMore";
+
 const contactsVal = [
   { icon: "icon-phone", title: "手机", value: "13129189764" },
   { icon: "icon-wechat-fill", title: "微信", value: "XanXong" },
@@ -70,21 +73,21 @@ const userskillVal = [
   },
 ];
 
-function Sidebar() {
+function Sidebar(props) {
+  const { showHideMore, showMore } = props;
+
   // 更多内容的元素
   const moreDIVRef = useRef();
   // userInfo元素
   const userInfoRef = useRef();
 
-  // 窗口宽度是否大于1200
-  const [moreShow, setMoreShow] = useState(false);
   const [heightObj, setHeightObj] = useState({
     userinfoH: 0,
     moreH: 0,
   });
 
-  const showMore = () => {
-    return setMoreShow(!moreShow);
+  const showMoreClick = () => {
+    return showHideMore(!showMore);
   };
 
   useEffect(() => {
@@ -114,7 +117,7 @@ function Sidebar() {
     <div
       className="sidebar"
       style={{
-        height: moreShow
+        height: showMore
           ? heightObj.moreH + heightObj.userinfoH
           : heightObj.userinfoH,
       }}
@@ -143,8 +146,8 @@ function Sidebar() {
         ref={moreDIVRef}
         className="sidebar-more"
         style={{
-          opacity: moreShow ? "1" : "0",
-          visibility: moreShow ? "visible" : "hidden",
+          opacity: showMore ? "1" : "0",
+          visibility: showMore ? "visible" : "hidden",
         }}
       >
         <div className="sidebar-more-base sidebar-contacts">
@@ -191,11 +194,16 @@ function Sidebar() {
           ))}
         </div>
       </div>
-      <div className="siderbar-showMore" onClick={showMore}>
-        {moreShow ? "隐藏" : "查看更多"}
+      <div className="siderbar-showMore" onClick={showMoreClick}>
+        {showMore ? "隐藏" : "查看更多"}
       </div>
     </div>
   );
 }
 
-export default Sidebar;
+export default connect(
+  (store) => ({
+    showMore: store.showMore,
+  }),
+  { showHideMore }
+)(Sidebar);
