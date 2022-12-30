@@ -4,8 +4,11 @@
   font-size: var(--fs-8);
   padding: 20px 7px;
   transition: color var(--transition-1);
-  &:hover {
-    color: var(--light-gray-70);
+
+  @media (any-hover: hover) {
+    &:hover {
+      color: var(--light-gray-70);
+    }
   }
   @media (min-width: 580px) {
     --fs-8: 14px;
@@ -18,5 +21,5 @@
   }
 }
 .active {
-  color: var(--orange-yellow-crayola);
+  color: var(--orange-yellow-crayola) !important;
 }

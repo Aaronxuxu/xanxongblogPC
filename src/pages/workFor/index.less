@@ -9,16 +9,20 @@
   }
   .my-card {
     transition: var(--transition-1);
-    &:hover {
-      transform: scale(1.1);
-      cursor: pointer;
+    @media (any-hover: hover) {
+      &:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+      }
     }
   }
   .my-card-title {
     a {
       color: white;
-      &:hover {
-        color: var(--vegas-gold);
+      @media (any-hover: hover) {
+        &:hover {
+          color: var(--vegas-gold);
+        }
       }
     }
   }
