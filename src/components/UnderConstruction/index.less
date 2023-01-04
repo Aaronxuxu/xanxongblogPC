@@ -1,0 +1,28 @@
+.UnderConstruction {
+  .UnderConstruction-img {
+    width: 100%;
+    height: auto;
+  }
+  .UnderConstruction-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px 0;
+    font-weight: var(--fw-600);
+    font-size: var(--fs-2);
+    letter-spacing: 3px;
+    word-spacing: 3px;
+
+    .UnderConstruction-title-icon {
+      font-size: var(--fs-1);
+    }
+
+    @media (max-width: 576px) {
+      font-size: var(--fs-4);
+      .UnderConstruction-title-icon {
+        font-size: var(--fs-3);
+      }
+    }
+  }
+}
