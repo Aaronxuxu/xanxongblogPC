@@ -17,8 +17,11 @@ body {
   overflow: hidden;
 
   .route-column {
-    padding: 30px;
+    padding: 10px;
     color: var(--white-2);
+    @media (min-width: 768px) {
+      padding: 30px;
+    }
     .navBar {
       position: fixed;
       bottom: 0;

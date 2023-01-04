@@ -8,7 +8,6 @@ function AboutMe() {
 
   const getVal = async () => {
     let content = sessionStorage.getItem("aboutMeVal");
-    console.log(content);
     if (content === null) {
       const { status, data, msg } = await getAboutMeVal();
       if (status === 0) {

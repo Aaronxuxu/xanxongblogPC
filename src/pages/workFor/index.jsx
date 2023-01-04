@@ -1,32 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Chrono } from "react-chrono";
 import "./index.less";
 import moment from "moment";
-const items = [
-  {
-    title: "2020-06-28",
-    cardTitle: "大学毕业",
-    cardDetailedText: "专业：网络工程",
-  },
-  {
-    title: "2021-04-06",
-    cardTitle: "广州轻微信息科技有限公司",
-    url: "http://qwetec.com/",
-    cardDetailedText: "岗位：前端开发工程师",
-  },
-  {
-    title: "2022-03-01",
-    cardTitle: "日博广告设计部",
-    url: "http://rebos.cn/",
-    cardDetailedText: "岗位：前端开发工程师",
-  },
-  {
-    title: moment().format("YYYY-MM-DD"),
-    cardTitle: "未完待续......",
-  },
-];
+import { getWorkForVal } from "../../api/axios";
+import { message } from "antd";
 
 function WorkFor() {
+  const [items, setItem] = useState([]);
+
+  const getVal = async () => {
+    let content = JSON.parse(sessionStorage.getItem("workForVal"));
+    if (content === null) {
+      const { data, msg, status } = await getWorkForVal();
+      if (status === 0) {
+        return message.open({
+          type: "error",
+          content: msg,
+        });
+      }
+      content = data;
+      sessionStorage.setItem("workForVal", JSON.stringify(content));
+    }
+    const itemsList = [
+      {
+        title: "2020-06-28",
+        cardTitle: "大学毕业",
+        cardDetailedText: "专业：网络工程",
+      },
+      ...content.map((e) => ({
+        title: (
+          <div className="workForVal-Chrono-title">
+            <div className="workForVal-Chrono-title-time">
+              {moment(e.joinTime).format("YYYY-MM-DD")}
+            </div>
+            <div className="workForVal-Chrono-title-split" />
+            <div className="workForVal-Chrono-title-time">
+              {moment(e.exitTime).format("YYYY-MM-DD")}
+            </div>
+          </div>
+        ),
+        cardTitle: e.company,
+        url: e.companyUrl,
+        cardDetailedText: `岗位：${e.appointment}`,
+      })),
+      {
+        title: moment().format("YYYY-MM-DD"),
+        cardTitle: "未完待续......",
+      },
+    ];
+    return setItem(itemsList);
+  };
+
+  useEffect(() => {
+    getVal();
+  }, []);
+
   return (
     <div className="workFor">
       <div className="workFor-Title">关于我的工作经历（不包含实习期）</div>
@@ -46,13 +74,14 @@ function WorkFor() {
           card: "my-card",
           cardText: "my-card-text",
           cardTitle: "my-card-title",
+          title: "my-title",
         }}
         activeItemIndex={0}
         disableClickOnCircle={true}
         cardHeight="auto"
         allowDynamicUpdate={true}
         disableAutoScrollOnClick={true}
-      />
+      ></Chrono>
     </div>
   );
 }

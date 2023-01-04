@@ -31,4 +31,31 @@
       color: var(--light-gray);
     }
   }
+  .workForVal-Chrono-title {
+    padding: 10px 0;
+    .workForVal-Chrono-title-time {
+      line-height: 2;
+    }
+    .workForVal-Chrono-title-split {
+      position: relative;
+
+      height: 18px;
+      &::before {
+        position: absolute;
+        content: "";
+        width: 3px;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--white-2);
+      }
+    }
+  }
+  @media (max-width: 374px) {
+    .dMpqbd,
+    .jMzAUM {
+      padding: 0 !important;
+    }
+  }
 }
