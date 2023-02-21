@@ -148,13 +148,9 @@ function Creation(props) {
 
   // 页面跳转到详情页
   const handleDetail = (item) => {
-    const { projectName, _id } = item;
+    const { projectName } = item;
 
-    return navigate(`/creationDetail?projectName=${projectName}`, {
-      state: {
-        id: _id,
-      },
-    });
+    return navigate(`/creationDetail?projectName=${projectName}`);
   };
 
   // 初始化获取项目分类

@@ -51,7 +51,7 @@ function App() {
               ) : (
                 <div
                   className="navbar-link navbar-link-back"
-                  onClick={() => navigate(-1)}
+                  onClick={() => navigate("/creation")}
                 >
                   返回
                 </div>

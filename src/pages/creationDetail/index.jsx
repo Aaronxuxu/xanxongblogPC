@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { notification, Carousel, Image, Result, Button, Tooltip } from "antd";
+import {
+  notification,
+  Carousel,
+  Image,
+  Result,
+  Button,
+  Tooltip,
+  Row,
+  Col,
+} from "antd";
 import MyIcon from "../../util/icon";
 import "./index.less";
 import MyLoading from "../../components/MyLoading";
 import { IMAGEURL, DEFAULTURL } from "../../util/constant";
 import moment from "moment";
+import qs from "query-string";
+
 function CreationDetail() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -20,19 +31,37 @@ function CreationDetail() {
   const [visible, setVisible] = useState(false);
 
   const getDataDetail = async () => {
-    const { state } = location;
-    if (!state.id) {
+    const { search } = location;
+    let qsSearch = qs.parse(search);
+
+    if (!Object.hasOwn(qsSearch, "projectName")) {
       return navigate("/");
     }
-    const { id } = state;
-    const { data, msg, status } = await React.$API.getSampleBeelsDetail({ id });
+
+    const { projectName } = qsSearch;
+    let { data, msg, status } = await React.$API.getSampleBeelsDetail({
+      projectName,
+    });
     if (status === 0) {
       notification.error({
         description: msg,
       });
     }
+
     setIsNormal(status === 1);
     setLoading(false);
+
+    let newSkillArr = [];
+    let skillArr = Array.from(
+      new Set(data.skillArr.map((e) => e.classify._id))
+    );
+    skillArr.forEach((el) => {
+      newSkillArr.push({
+        ...data.skillArr.find((e) => e.classify._id === el).classify,
+        children: data.skillArr.filter((e) => e.classify._id === el),
+      });
+    });
+    data = Object.assign(data, { skillArr: newSkillArr });
     setDataVal(data);
     console.log(data.skillArr);
   };
@@ -107,7 +136,29 @@ function CreationDetail() {
           </div>
           <div className="creationDetail-content">
             <div className="creationDetail-content-title">技术栈</div>
-            <div className="creationDetail-content-main"></div>
+            <div className="creationDetail-content-main">
+              {dataVal.skillArr.map((e, i) => (
+                <Row
+                  gutter={[10, 10]}
+                  key={e._id}
+                  className={`creationDetail-content-main-ul ${
+                    i !== dataVal.skillArr.length - 1 &&
+                    "creationDetail-content-main-ul-NoLast"
+                  }`}
+                >
+                  <Col span={24} md={{ span: 3 }}>
+                    {e.classifyName}
+                  </Col>
+                  <Col span={24} md={{ span: 20, offset: 1 }}>
+                    <div className="creationDetail-content-main-li">
+                      {e.children.map((el) => (
+                        <div key={el._id}>{el.skillName}</div>
+                      ))}
+                    </div>
+                  </Col>
+                </Row>
+              ))}
+            </div>
           </div>
         </>
       ) : (

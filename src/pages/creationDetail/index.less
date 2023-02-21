@@ -47,23 +47,45 @@
         word-spacing: 0px;
         text-align: right;
       }
-      &::after {
-        content: "";
-        position: absolute;
-        left: 10%;
-        right: 10%;
-        bottom: 0;
-        height: 1px;
-        background-image: linear-gradient(
-          to right,
-          var(--eerie-black-2),
-          var(--white-2),
-          var(--eerie-black-2)
-        );
-      }
+      // &::after {
+      //   content: "";
+      //   position: absolute;
+      //   left: 10%;
+      //   right: 10%;
+      //   bottom: 0;
+      //   height: 1px;
+      //   background-image: linear-gradient(
+      //     to right,
+      //     var(--eerie-black-2),
+      //     var(--white-2),
+      //     var(--eerie-black-2)
+      //   );
+      // }
     }
     .creationDetail-content-main {
       padding: 15px;
+
+      .creationDetail-content-main-ul {
+        padding: 20px 0;
+        .creationDetail-content-main-li {
+          display: flex;
+          gap: 20px;
+          flex-wrap: wrap;
+          align-content: center;
+        }
+      }
+      .creationDetail-content-main-ul-NoLast {
+        position: relative;
+        &::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          height: 1px;
+          background: var(--jet);
+        }
+      }
     }
   }
   .creationDetail-magrinBtm {
