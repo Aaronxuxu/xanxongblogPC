@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import _ from "lodash";
+import _debounce from "lodash/debounce";
 import LazyLoad from "react-lazyload";
 import { Space, Row, Col, Image } from "antd";
 import MyIcon from "../../util/icon";
@@ -102,7 +102,7 @@ function Sidebar(props) {
   }, []);
 
   // 监听窗口变化
-  const windowResize = _.debounce(
+  const windowResize = _debounce(
     () => {
       setHeightObj({
         userinfoH: userInfoRef.current.scrollHeight,

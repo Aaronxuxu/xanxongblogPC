@@ -11,8 +11,10 @@ import store from "./redux/store";
 import zhCN from "antd/lib/locale/zh_CN";
 import moment from "moment";
 import "moment/locale/zh-cn";
+import * as axios from "./api/axios";
 moment.locale("zh-cn");
 
+React.$API = axios;
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>

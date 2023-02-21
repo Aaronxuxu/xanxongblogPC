@@ -17,7 +17,7 @@ body {
   overflow: hidden;
 
   .route-column {
-    padding: 10px;
+    padding: 20px;
     color: var(--white-2);
     @media (min-width: 768px) {
       padding: 30px;
@@ -32,13 +32,16 @@ body {
       border: 1px solid var(--jet);
       border-radius: 12px 12px 0 0;
       box-shadow: var(--shadow-2);
-      z-index: 5;
+      z-index: 200;
       .navBar-list {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
         padding: 0 10px;
+        .navbar-link-back:hover {
+          cursor: pointer;
+        }
         @media (min-width: 580px) {
           gap: 20px;
         }
@@ -67,7 +70,7 @@ body {
 
 @media (max-width: 1200px) {
   .App {
-    width: 90%;
+    width: 80%;
   }
 }
 

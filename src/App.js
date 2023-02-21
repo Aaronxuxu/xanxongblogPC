@@ -1,10 +1,10 @@
-import React, { lazy, Suspense, useEffect } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import React, { lazy, Suspense, useEffect, useState } from "react";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import PageLoading from "./components/PageLoading";
 import router from "./util/router";
 
-import { Col, Row, FloatButton } from "antd";
+import { Col, Row } from "antd";
 import MyNavLink from "./components/MyNavLink";
 import ColumnHeader from "./components/ColumnHeader";
 import "./App.less";
@@ -12,13 +12,19 @@ const Aboutme = lazy(() => import("./pages/aboutMe"));
 
 function App() {
   const { pathname } = useLocation();
+
+  const [hasNav, setHasNav] = useState(true);
+  const navigate = useNavigate();
   useEffect(() => {
     if (pathname === "/") {
       document.title = "徐轩雄 | 关于我";
+      setHasNav(true);
     } else {
       let pathName = pathname.slice(1);
-      let label = router.find((e) => pathName.includes(e.path)).label;
-      document.title = `徐轩雄 | ${label}`;
+      let curPath = router.find((e) => e.path === pathName);
+      document.title = `徐轩雄 | ${curPath.label}`;
+      const { meta } = curPath;
+      setHasNav(!meta.isHide);
     }
   }, [pathname]);
 
@@ -35,9 +41,21 @@ function App() {
         >
           <div className="navBar">
             <div className="navBar-list">
-              {router.map((e) => (
-                <MyNavLink key={e.path} label={e.label} url={e.path} />
-              ))}
+              {hasNav ? (
+                router.map(
+                  (e) =>
+                    !e.meta.isHide && (
+                      <MyNavLink key={e.path} label={e.label} url={e.path} />
+                    )
+                )
+              ) : (
+                <div
+                  className="navbar-link navbar-link-back"
+                  onClick={() => navigate(-1)}
+                >
+                  返回
+                </div>
+              )}
             </div>
           </div>
           <ColumnHeader />
@@ -65,7 +83,7 @@ function App() {
           </Routes>
         </Col>
       </Row>
-      <FloatButton.BackTop visibilityHeight={50} />
+      {/* <FloatButton.BackTop visibilityHeight={50} /> */}
     </div>
   );
 }
