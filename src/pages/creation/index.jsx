@@ -212,6 +212,10 @@ function Creation(props) {
                       value={searchKey}
                       ref={searchRef}
                       onPressEnter={handleSearch}
+                      onBlur={() => {
+                        setSearchKey("");
+                        return setIsSearchActive(false);
+                      }}
                     />
                   </div>
                   {/* <Button

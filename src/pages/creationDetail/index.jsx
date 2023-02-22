@@ -17,6 +17,7 @@ import MyLoading from "../../components/MyLoading";
 import { IMAGEURL, DEFAULTURL } from "../../util/constant";
 import moment from "moment";
 import qs from "query-string";
+import { MySwiper } from "../../components/MySwiper";
 
 function CreationDetail() {
   const location = useLocation();
@@ -63,7 +64,6 @@ function CreationDetail() {
     });
     data = Object.assign(data, { skillArr: newSkillArr });
     setDataVal(data);
-    console.log(data.skillArr);
   };
 
   useEffect(() => {
@@ -78,19 +78,8 @@ function CreationDetail() {
         <>
           {dataVal.imageArr.length > 0 && (
             <div className="creationDetail-slide">
-              {
-                <Carousel autoplay>
-                  {dataVal.imageArr.map((e, i) => (
-                    <Image
-                      key={i}
-                      className="creationDetail-slide-image"
-                      src={DEFAULTURL + "/" + e}
-                      preview={false}
-                      fallback={IMAGEURL.ImageError}
-                    />
-                  ))}
-                </Carousel>
-              }
+              <MySwiper dataList={dataVal.imageArr} />
+
               {/* 相册模式预览 */}
               <div className="creationDetail-slide-preview">
                 <Tooltip placement="top" title="点击可查看大图">

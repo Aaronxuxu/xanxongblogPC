@@ -4,7 +4,7 @@ import Sidebar from "./components/Sidebar";
 import PageLoading from "./components/PageLoading";
 import router from "./util/router";
 
-import { Col, Row } from "antd";
+import { Col, Row, FloatButton } from "antd";
 import MyNavLink from "./components/MyNavLink";
 import ColumnHeader from "./components/ColumnHeader";
 import "./App.less";
@@ -83,7 +83,8 @@ function App() {
           </Routes>
         </Col>
       </Row>
-      {/* <FloatButton.BackTop visibilityHeight={50} /> */}
+      {/* <FloatButton.BackTop visibilityHeight={50} /> */}{" "}
+      <FloatButton.BackTop />
     </div>
   );
 }

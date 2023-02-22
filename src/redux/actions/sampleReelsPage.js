@@ -1,8 +1,11 @@
 import {
   SETSAMPLEREELSBASEDATA,
-  SETSAMPLEREELSLIST,
+  // SETSAMPLEREELSLIST,
 } from "../../util/constant";
-import { getClassies, getSampleBeels } from "../../api/axios";
+import {
+  getClassies,
+  //  getSampleBeels
+} from "../../api/axios";
 
 import { notification } from "antd";
 
